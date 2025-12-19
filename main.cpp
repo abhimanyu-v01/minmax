@@ -1,6 +1,7 @@
 #include "game.h"
 #include <cmath>
 #include <iostream>
+#include <ostream>
 
 int main() {
   std::cout << "\033[2J\033[H";
@@ -19,10 +20,6 @@ int main() {
   std::cin >> num;
   choice = num - 1;
 
-  int turns[row * column];
-  for (int y = choice; y < row * column; y++) {
-    turns[y] = y % 2;
-  }
   int cplayer = 1, bot = 0;
   int move;
   int iteration = 0;
@@ -32,13 +29,18 @@ int main() {
   while (iteration < (row * column)) {
     cplayer = abs(cplayer - bot);
     if (cplayer) {
-      player(move, choice, turns[iteration] + 1, iteration);
+      player(move, iteration % 2, (iteration % 2) + 1, iteration);
     } else {
       // bot logic here
     }
-    iteration++;
-    choice = iteration % 2;
     draw();
+
+    if (wincheck()) {
+      break;
+    }
+    iteration++;
   }
+
+  std::cout << ele[iteration % 2] << " Wins" << std::endl;
   return 0;
 }

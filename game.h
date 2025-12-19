@@ -12,5 +12,6 @@ extern int moves[];
 // Functions
 void draw();
 void player(int &move, int choice, int turn, int &iteration);
+int wincheck();
 
 #endif
